@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.NetworkInformation;
 using static System.Console;
 namespace ATMConsoleApplication
 {
@@ -170,13 +171,38 @@ namespace ATMConsoleApplication
             Printing.Loading();
             Printing.Title();
             Printing.LoggedIn(user);
-            WriteLine($"> Your Current Balance is {user.GetUserBalance():C2}");
-            Write("\n> How much would you like to deposit: ");
-            decimal deposit = decimal.Parse(Console.ReadLine());
+            decimal deposit = 0;
+            bool confirmed = false;
+            while (!confirmed)
+            {
+                WriteLine($"\n> Your Current Balance is {user.GetUserBalance():C2}");
+                Write("\n> How much would you like to deposit: ");
+                bool parse = decimal.TryParse(Console.ReadLine(), out decimal num);
+                if (!parse)
+                {
+                    Printing.InvalidSelection();
+                    AtmUserDeposit(user);
+                }
+                ConsoleColor previousColor = ForegroundColor;
+                ForegroundColor = ConsoleColor.Green;
+                WriteLine($"\n> You entered * {num:C2} *");
+                ForegroundColor = previousColor;
+
+                Write("\n> Are you sure you want this as your deposit? (Yes/No) ");
+                string userResponse = ReadLine().ToLower().Trim();
+                if (userResponse == "yes")
+                {
+                    Printing.Loading();
+                    WriteLine("\n> Your Deposit is Confirmed. ");
+                    Write("\n> Press Enter to Continue: ");
+                    deposit = num;
+                    confirmed = true;
+                }
+            }
             Transactions.Deposit(user, deposit);
             Printing.Title();
-            Printing.Loading();
-            Console.WriteLine($"> Thank you {user.FirstName}, your new Balance is {user.GetUserBalance():C2}");
+            WriteLine($"\n> Thank you {user.FirstName}");
+            WriteLine($"\n>Your new Balance is {user.GetUserBalance():C2}");
             ReadKey();
             AtmMenu(user);
         }

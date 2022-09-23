@@ -5,7 +5,7 @@ namespace ATMConsoleApplication
     {
         public static decimal Deposit(User user, decimal amount)
         {
-            return user.SetUserBalance(user.GetUserBalance() + amount);
+            return user.SetUserBalance(amount);
         }
 
         public static decimal Withdrawl(User user, decimal amount)
