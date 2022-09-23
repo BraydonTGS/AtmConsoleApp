@@ -18,13 +18,17 @@ namespace ATMConsoleApplication
 
         }
 
-        public static void AtmSelection(User user)
+        public static void LoggedIn(User user)
         {
             ConsoleColor previousColor = ForegroundColor;
             ForegroundColor = ConsoleColor.Green;
             WriteLine();
             WriteLine($"> Logged in as {user.FirstName}, {user.LastName} <");
             ForegroundColor = previousColor;
+        }
+
+        public static void AtmSelection()
+        {
             Console.WriteLine("\n> Please select one of the following options...");
             Console.WriteLine("\t\n1. Deposit");
             Console.WriteLine("\t\n2. Withdraw");
@@ -85,15 +89,17 @@ namespace ATMConsoleApplication
             Loading();
             ConsoleColor previousColor = ForegroundColor;
             ForegroundColor = ConsoleColor.Red;
-            Thread.Sleep(1800);
+            Thread.Sleep(3000);
             Clear();
+            WriteLine("**************************************************");
             WriteLine("**************************************************");
             WriteLine("******************** WARNING *********************");
             WriteLine("**** YOU HAVE BEEN LOCKED OUT OF YOUR ACCOUNT **** ");
             WriteLine("** PLEASE CONTACT YOUR BANK MANAGER TO CONTINUE ** ");
             WriteLine("**************************************************");
+            WriteLine("**************************************************");
             ForegroundColor = previousColor;
-            ReadKey();
+            Thread.Sleep(1800);
 
 
         }
@@ -102,7 +108,7 @@ namespace ATMConsoleApplication
         {
             ConsoleColor previousColor = ForegroundColor;
             ForegroundColor = ConsoleColor.Green;
-            WriteLine("\n> Loading Please Wait... ");
+            WriteLine("\n> Loading Please Wait ... ... ...  ");
             ForegroundColor = previousColor;
             Thread.Sleep(1800);
         }

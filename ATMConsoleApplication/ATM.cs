@@ -138,7 +138,8 @@ namespace ATMConsoleApplication
             Printing.Title();
             Printing.Loading();
             Printing.Title();
-            Printing.AtmSelection(user);
+            Printing.LoggedIn(user);
+            Printing.AtmSelection();
             string userSelection = ReadLine().Trim();
             switch (userSelection)
             {
@@ -161,24 +162,48 @@ namespace ATMConsoleApplication
             }
 
         }
+
         // ATM Deposit //
         public static void AtmUserDeposit(User user)
         {
-
+            Printing.Title();
+            Printing.Loading();
+            Printing.Title();
+            Printing.LoggedIn(user);
+            WriteLine($"> Your Current Balance is {user.GetUserBalance():C2}");
+            Write("\n> How much would you like to deposit: ");
+            decimal deposit = decimal.Parse(Console.ReadLine());
+            Transactions.Deposit(user, deposit);
+            Printing.Title();
+            Printing.Loading();
+            Console.WriteLine($"> Thank you {user.FirstName}, your new Balance is {user.GetUserBalance():C2}");
+            ReadKey();
+            AtmMenu(user);
         }
         // ATM Withdraw //
         public static void AtmUserWithdraw(User user)
         {
-
+            Printing.Title();
+            Printing.Loading();
+            Printing.Title();
+            Printing.LoggedIn(user);
+            ReadKey();
+            AtmMenu(user);
         }
         // ATM Balance //
         public static void AtmUserBalance(User user)
         {
-
+            Printing.Title();
+            Printing.Loading();
+            Printing.Title();
+            Printing.LoggedIn(user);
+            ReadKey();
+            AtmMenu(user);
         }
 
         public static void Exit()
         {
+            Printing.Loading();
             WriteLine("\n> Thank you and Please Come Again!");
             Thread.Sleep(1300);
             Environment.Exit(0);

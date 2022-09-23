@@ -22,14 +22,18 @@ namespace ATMConsoleApplication
 
         }
 
-        public int GetUserCardNum()
+        public decimal SetUserBalance(decimal value)
         {
-            return _accountNumber;
+            return _balance = value;
         }
 
         public decimal GetUserBalance()
         {
             return _balance;
+        }
+        public int GetUserCardNum()
+        {
+            return _accountNumber;
         }
 
         public int GetUserPin()
