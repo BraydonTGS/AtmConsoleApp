@@ -24,7 +24,6 @@ namespace ATMConsoleApplication
             ForegroundColor = ConsoleColor.Green;
             WriteLine();
             WriteLine($"> Logged in as {user.FirstName}, {user.LastName} <");
-            WriteLine();
             ForegroundColor = previousColor;
             Console.WriteLine("\n> Please select one of the following options...");
             Console.WriteLine("\t\n1. Deposit");

@@ -135,7 +135,6 @@ namespace ATMConsoleApplication
         // ATM Selection Menu //
         public static void AtmMenu(User user)
         {
-
             Printing.Title();
             Printing.Loading();
             Printing.Title();
@@ -144,10 +143,13 @@ namespace ATMConsoleApplication
             switch (userSelection)
             {
                 case "1":
+                    AtmUserDeposit(user);
                     break;
                 case "2":
+                    AtmUserWithdraw(user);
                     break;
                 case "3":
+                    AtmUserBalance(user);
                     break;
                 case "4":
                     Exit();
@@ -157,6 +159,21 @@ namespace ATMConsoleApplication
                     AtmMenu(user);
                     break;
             }
+
+        }
+        // ATM Deposit //
+        public static void AtmUserDeposit(User user)
+        {
+
+        }
+        // ATM Withdraw //
+        public static void AtmUserWithdraw(User user)
+        {
+
+        }
+        // ATM Balance //
+        public static void AtmUserBalance(User user)
+        {
 
         }
 
