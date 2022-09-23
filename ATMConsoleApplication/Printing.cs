@@ -100,15 +100,32 @@ namespace ATMConsoleApplication
             WriteLine("**************************************************");
             ForegroundColor = previousColor;
             Thread.Sleep(1800);
+        }
 
+        public static void ThankUser(User user)
+        {
+            ConsoleColor previousColor = ForegroundColor;
+            ForegroundColor = ConsoleColor.Green;
+            WriteLine($"\n> Thank you {user.FirstName}");
+            ForegroundColor = previousColor;
+        }
 
+        public static void InsufficientFunds()
+        {
+            ConsoleColor previousColor = ForegroundColor;
+            ForegroundColor = ConsoleColor.Red;
+            WriteLine("\n> You have Insufficient Funds. ");
+            WriteLine("\n> Please Select a new ammount. ");
+            Write("\n> Press Enter to Continue: ");
+            ReadKey();
+            ForegroundColor = previousColor;
         }
 
         public static void Loading()
         {
             ConsoleColor previousColor = ForegroundColor;
             ForegroundColor = ConsoleColor.Green;
-            WriteLine("\n> Loading Please Wait ... ... ...  ");
+            WriteLine("\n> Loading Please Wait... ... ...  ");
             ForegroundColor = previousColor;
             Thread.Sleep(1800);
         }

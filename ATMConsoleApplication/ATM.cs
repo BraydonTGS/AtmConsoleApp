@@ -188,12 +188,12 @@ namespace ATMConsoleApplication
                 WriteLine($"\n> You entered * {num:C2} *");
                 ForegroundColor = previousColor;
 
-                Write("\n> Are you sure you want this as your deposit? (Yes/No) ");
+                Write("\n> Are you sure you want to procede (Yes/No) ");
                 string userResponse = ReadLine().ToLower().Trim();
                 if (userResponse == "yes")
                 {
                     Printing.Loading();
-                    WriteLine("\n> Your Deposit is Confirmed. ");
+                    WriteLine("\n> Please Wait While we Confirm the Transaction.");
                     Write("\n> Press Enter to Continue: ");
                     deposit = num;
                     confirmed = true;
@@ -213,6 +213,38 @@ namespace ATMConsoleApplication
             Printing.Loading();
             Printing.Title();
             Printing.LoggedIn(user);
+            decimal withdrawl = 0;
+            bool confirmed = false;
+            while (!confirmed)
+            {
+                WriteLine($"\n> Your Current Balance is {user.GetUserBalance():C2}");
+                Write("\n> How much would you like to withdrawl: ");
+                bool parse = decimal.TryParse(Console.ReadLine(), out decimal num);
+                if (!parse)
+                {
+                    Printing.InvalidSelection();
+                    AtmUserWithdraw(user);
+                }
+                ConsoleColor previousColor = ForegroundColor;
+                ForegroundColor = ConsoleColor.Green;
+                WriteLine($"\n> You entered * {num:C2} *");
+                ForegroundColor = previousColor;
+
+                Write("\n> Are you sure you want to procede? (Yes/No) ");
+                string userResponse = ReadLine().ToLower().Trim();
+                if (userResponse == "yes")
+                {
+                    Printing.Loading();
+                    WriteLine("\n> Please Wait While we Confirm the Transaction.");
+                    Write("\n> Press Enter to Continue: ");
+                    withdrawl = num;
+                    confirmed = true;
+                }
+            }
+            Transactions.Withdrawl(user, withdrawl);
+            Printing.Title();
+            WriteLine($"\n> Thank you {user.FirstName}");
+            WriteLine($"\n> Your new Balance is {user.GetUserBalance():C2}");
             ReadKey();
             AtmMenu(user);
         }
