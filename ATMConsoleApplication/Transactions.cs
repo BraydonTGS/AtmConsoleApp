@@ -3,9 +3,9 @@ namespace ATMConsoleApplication
 {
     public class Transactions
     {
-        public double Deposit(User user, double amount) => user.GetUserBalance() + amount;
+        public decimal Deposit(User user, decimal amount) => user.GetUserBalance() + amount;
 
-        public double Withdrawl(User user, double amount)
+        public decimal Withdrawl(User user, decimal amount)
         {
             return 0;
         }

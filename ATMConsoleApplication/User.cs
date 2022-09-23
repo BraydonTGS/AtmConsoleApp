@@ -4,17 +4,13 @@ namespace ATMConsoleApplication
     public class User
     {
         private int _accountNumber;
-        private double _balance;
+        private decimal _balance;
         private int _pin;
-
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-
-
-
-        public User(string firstName, string lastName, double balance, int pin)
+        public User(string firstName, string lastName, decimal balance, int pin)
         {
             Random rnd = new Random();
             _accountNumber = rnd.Next(10000000, 1000000000);
@@ -31,7 +27,7 @@ namespace ATMConsoleApplication
             return _accountNumber;
         }
 
-        public double GetUserBalance()
+        public decimal GetUserBalance()
         {
             return _balance;
         }
