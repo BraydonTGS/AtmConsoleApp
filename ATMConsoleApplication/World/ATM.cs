@@ -27,6 +27,7 @@ namespace ATMConsoleApplication
                     break;
             }
         }
+
         // Grabbing User Information //
         public static void GetUserInformation()
         {
@@ -154,6 +155,9 @@ namespace ATMConsoleApplication
                     AtmUserBalance(user);
                     break;
                 case "4":
+                    AtmSavingsAccount(user);
+                    break;
+                case "5":
                     Exit();
                     break;
                 default:
@@ -198,14 +202,27 @@ namespace ATMConsoleApplication
                     deposit = num;
                     confirmed = true;
                 }
+                else if (userResponse == "no")
+                {
+                    Printing.Loading();
+                    WriteLine("\n> Transaction Canceled. Returing to Main Menu. ");
+                    AtmMenu(user);
+                }
+                else
+                {
+                    Printing.Loading();
+                    Printing.Title();
+                    Printing.InvalidSelection();
+                    AtmUserDeposit(user);
+                }
             }
             Transactions.Deposit(user, deposit);
             Printing.Title();
             WriteLine($"\n> Thank you {user.FirstName}");
-            WriteLine($"\n>Your new Balance is {user.GetUserBalance():C2}");
-            ReadKey();
+            Printing.PrintBalanceAfterTransaction(user);
             AtmMenu(user);
         }
+
         // ATM Withdraw //
         public static void AtmUserWithdraw(User user)
         {
@@ -240,14 +257,28 @@ namespace ATMConsoleApplication
                     withdrawl = num;
                     confirmed = true;
                 }
+                else if (userResponse == "no")
+                {
+                    Printing.Loading();
+                    WriteLine("\n> Transaction Canceled. Returing to Main Menu. ");
+                    AtmMenu(user);
+                }
+                else
+                {
+                    Printing.Loading();
+                    Printing.Title();
+                    Printing.InvalidSelection();
+                    AtmUserWithdraw(user);
+                }
             }
             Transactions.Withdrawl(user, withdrawl);
             Printing.Title();
             WriteLine($"\n> Thank you {user.FirstName}");
-            WriteLine($"\n> Your new Balance is {user.GetUserBalance():C2}");
+            Printing.PrintBalanceAfterTransaction(user);
             ReadKey();
             AtmMenu(user);
         }
+
         // ATM Balance //
         public static void AtmUserBalance(User user)
         {
@@ -255,8 +286,15 @@ namespace ATMConsoleApplication
             Printing.Loading();
             Printing.Title();
             Printing.LoggedIn(user);
-            ReadKey();
+            Printing.PrintCurrentBalance(user);
             AtmMenu(user);
+        }
+
+        // ATM Open Savings Account //
+        public static void AtmSavingsAccount(User user)
+        {
+            WriteLine("IN DEVELOPMENT");
+            ReadKey();
         }
 
         public static void Exit()

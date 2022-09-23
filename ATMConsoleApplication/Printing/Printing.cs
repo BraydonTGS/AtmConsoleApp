@@ -4,6 +4,7 @@ namespace ATMConsoleApplication
 {
     public class Printing
     {
+        // Title //
         public static void Title()
         {
             Clear();
@@ -18,6 +19,7 @@ namespace ATMConsoleApplication
 
         }
 
+        // Logged In //
         public static void LoggedIn(User user)
         {
             ConsoleColor previousColor = ForegroundColor;
@@ -27,15 +29,18 @@ namespace ATMConsoleApplication
             ForegroundColor = previousColor;
         }
 
+        // Atm Selection //
         public static void AtmSelection()
         {
             Console.WriteLine("\n> Please select one of the following options...");
             Console.WriteLine("\t\n1. Deposit");
             Console.WriteLine("\t\n2. Withdraw");
             Console.WriteLine("\t\n3. Show Balance");
-            Console.WriteLine("\t\n4. Exit");
+            WriteLine("\n4. Open Savings Account");
+            Console.WriteLine("\t\n5. Exit");
         }
 
+        // Atm Greeting //
         public static void AtmGreeting(User user)
         {
             Title();
@@ -48,6 +53,7 @@ namespace ATMConsoleApplication
             Clear();
         }
 
+        // User Validation //
         public static void UserValidationText(int attempts)
         {
             Printing.Title();
@@ -73,6 +79,7 @@ namespace ATMConsoleApplication
 
         }
 
+        // Invalid Pin //
         public static void InvalidPinNumber()
         {
             ConsoleColor previousColor = ForegroundColor;
@@ -83,6 +90,7 @@ namespace ATMConsoleApplication
             ReadKey();
         }
 
+        // Out of Attempts //
         public static void NoMoreAttemptsLeft()
         {
             Clear();
@@ -102,6 +110,7 @@ namespace ATMConsoleApplication
             Thread.Sleep(1800);
         }
 
+        // Thank User //
         public static void ThankUser(User user)
         {
             ConsoleColor previousColor = ForegroundColor;
@@ -110,6 +119,7 @@ namespace ATMConsoleApplication
             ForegroundColor = previousColor;
         }
 
+        // Insufficient Funds //
         public static void InsufficientFunds()
         {
             ConsoleColor previousColor = ForegroundColor;
@@ -121,6 +131,30 @@ namespace ATMConsoleApplication
             ForegroundColor = previousColor;
         }
 
+        // Print Current Balance //
+        public static void PrintCurrentBalance(User user)
+        {
+            ConsoleColor previousColor = ForegroundColor;
+            ForegroundColor = ConsoleColor.Green;
+            WriteLine($"\n> Your Current Balance is {user.GetUserBalance():C2}");
+            WriteLine($"\n> Press Enter to Continue ");
+            ReadKey();
+            ForegroundColor = previousColor;
+
+        }
+
+        // Balance After Transaction //
+        public static void PrintBalanceAfterTransaction(User user)
+        {
+            ConsoleColor previousColor = ForegroundColor;
+            ForegroundColor = ConsoleColor.Green;
+            WriteLine($"\n> Your new Balance is {user.GetUserBalance():C2}");
+            ForegroundColor = previousColor;
+            Write("\n> Press Enter to Continue: ");
+            ReadKey();
+        }
+
+        // Loading //
         public static void Loading()
         {
             ConsoleColor previousColor = ForegroundColor;
@@ -130,6 +164,7 @@ namespace ATMConsoleApplication
             Thread.Sleep(1800);
         }
 
+        // Invalid Selection //
         public static void InvalidSelection()
         {
             Title();
@@ -137,7 +172,7 @@ namespace ATMConsoleApplication
             ForegroundColor = ConsoleColor.Red;
             WriteLine("\n> Plesase Enter a Valid Selection! ");
             ForegroundColor = previousColor;
-            Write("\n> Press Enter to Continue. ");
+            Write("\n> Press Enter to Continue: ");
             ReadKey();
         }
     }

@@ -4,12 +4,14 @@ namespace ATMConsoleApplication
 {
     public class Transactions
     {
+        // Deposit //
         public static decimal Deposit(User user, decimal amount)
         {
             var newAmount = user.GetUserBalance() + amount;
             return user.SetNewBalance(newAmount);
         }
 
+        // Withdrawl //
         public static decimal Withdrawl(User user, decimal amount)
         {
             if (user.GetUserBalance() < amount)

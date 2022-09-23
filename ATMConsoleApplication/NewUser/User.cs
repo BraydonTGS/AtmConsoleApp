@@ -1,4 +1,6 @@
 ﻿using System;
+using ATMConsoleApplication.Accounts;
+
 namespace ATMConsoleApplication
 {
     public class User
@@ -8,6 +10,7 @@ namespace ATMConsoleApplication
         private int _pin;
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        private List<Account> Accounts { get; set; } = new List<Account>();
 
         public User(string firstName, string lastName, decimal amount, int pin)
         {
