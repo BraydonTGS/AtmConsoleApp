@@ -37,7 +37,7 @@ namespace ATMConsoleApplication
             WriteLine("\t\n1. Deposit");
             WriteLine("\t\n2. Withdraw");
             WriteLine("\t\n3. Show Balance");
-            WriteLine("\n4. Open Savings Account");
+            WriteLine("\n4. Deposit to Savings Account");
             WriteLine("\t\n5. Exit");
         }
 
@@ -133,11 +133,11 @@ namespace ATMConsoleApplication
         }
 
         // Print Current Balance //
-        public static void PrintCurrentBalance(CheckingAccount checking)
+        public static void PrintCurrentBalance(Account myAccount)
         {
             ConsoleColor previousColor = ForegroundColor;
             ForegroundColor = ConsoleColor.Green;
-            WriteLine($"\n> Your Current Balance is {checking.GetBalance():C2}");
+            WriteLine($"\n> Your Current Balance is {myAccount.GetBalance():C2}");
             WriteLine($"\n> Press Enter to Continue ");
             ReadKey();
             ForegroundColor = previousColor;
@@ -145,11 +145,11 @@ namespace ATMConsoleApplication
         }
 
         // Balance After Transaction //
-        public static void PrintBalanceAfterTransaction(CheckingAccount checking)
+        public static void PrintBalanceAfterTransaction(Account myAccount)
         {
             ConsoleColor previousColor = ForegroundColor;
             ForegroundColor = ConsoleColor.Green;
-            WriteLine($"\n> Your new Balance is {checking.GetBalance():C2}");
+            WriteLine($"\n> Your new Balance is {myAccount.GetBalance():C2}");
             ForegroundColor = previousColor;
             Write("\n> Press Enter to Continue: ");
             ReadKey();

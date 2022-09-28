@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.NetworkInformation;
+using System.Security.Principal;
 using ATMConsoleApplication.Accounts;
 using static System.Console;
 namespace ATMConsoleApplication
@@ -84,10 +85,13 @@ namespace ATMConsoleApplication
             BankAccounts bank = new BankAccounts();
             var newUser = new User(firstName, lastName);
             CheckingAccount checking = new CheckingAccount(balance, pin);
+            Account savings = new SavingsAccount();
             bank.AddNewUserToList(newUser);
             newUser.AddNewAccountToList(checking);
+            newUser.AddNewAccountToList(savings);
             var userChecking = newUser.GetChecking(newUser);
-            WriteLine("\n> We have automatically generated you a Checking Account.");
+            var userSavings = newUser.GetSavings(newUser);
+            WriteLine("\n> We have automatically generated you a Checking & Savings Account.");
             Thread.Sleep(1500);
             WriteLine("\n> Please Write this Number Down: ");
             Thread.Sleep(1500);
@@ -98,10 +102,11 @@ namespace ATMConsoleApplication
             Thread.Sleep(1500);
             Write("\n> Press Enter to Continue: ");
             ReadKey();
-            UserValidation(newUser, userChecking);
+            UserValidation(newUser, userChecking, userSavings);
         }
+
         // Validating the User //
-        public static void UserValidation(User user, Account account)
+        public static void UserValidation(User user, Account checking, Account savings)
         {
             bool confirmed = false;
             int numberOfAttempts = 3;
@@ -111,19 +116,19 @@ namespace ATMConsoleApplication
                 if (numberOfAttempts > 0)
                 {
                     bool parse1 = int.TryParse(ReadLine(), out int userResponse);
-                    if (!parse1 || userResponse != account.GetAccountPin())
+                    if (!parse1 || userResponse != checking.GetAccountPin())
                     {
                         numberOfAttempts--;
                         Printing.InvalidPinNumber();
                         Printing.UserValidationText(numberOfAttempts);
                     }
 
-                    if (userResponse == account.GetAccountPin())
+                    if (userResponse == checking.GetAccountPin())
                     {
                         confirmed = true;
                         Printing.Loading();
                         Printing.AtmGreeting(user);
-                        AtmMenu(user, account);
+                        AtmMenu(user, checking, savings);
                         break;
                     }
                 }
@@ -138,7 +143,7 @@ namespace ATMConsoleApplication
         }
 
         // ATM Selection Menu //
-        public static void AtmMenu(User user, Account account)
+        public static void AtmMenu(User user, Account checking, Account savings)
         {
             Printing.Title();
             Printing.Loading();
@@ -149,30 +154,30 @@ namespace ATMConsoleApplication
             switch (userSelection)
             {
                 case "1":
-                    AtmUserDeposit(user, account);
+                    AtmUserDeposit(user, checking, savings);
                     break;
                 case "2":
-                    AtmUserWithdraw(user, account);
+                    AtmUserWithdraw(user, checking, savings);
                     break;
                 case "3":
-                    AtmUserBalance(user, account);
+                    AtmUserBalance(user, checking, savings);
                     break;
                 case "4":
-                    AtmSavingsAccount(user, account);
+                    AtmSavingsAccount(user, checking, savings);
                     break;
                 case "5":
                     Exit();
                     break;
                 default:
                     Printing.InvalidSelection();
-                    AtmMenu(user, account);
+                    AtmMenu(user, checking, savings);
                     break;
             }
 
         }
 
         // ATM Deposit //
-        public static void AtmUserDeposit(User user, Account myChecking)
+        public static void AtmUserDeposit(User user, Account myChecking, Account savings)
         {
             Printing.Title();
             Printing.Loading();
@@ -209,25 +214,25 @@ namespace ATMConsoleApplication
                 {
                     Printing.Loading();
                     WriteLine("\n> Transaction Canceled. Returing to Main Menu. ");
-                    AtmMenu(user, myChecking);
+                    AtmMenu(user, myChecking, savings);
                 }
                 else
                 {
                     Printing.Loading();
                     Printing.Title();
                     Printing.InvalidSelection();
-                    AtmUserDeposit(user, myChecking);
+                    AtmUserDeposit(user, myChecking, savings);
                 }
             }
             myChecking.Deposit(myChecking, deposit);
             Printing.Title();
             WriteLine($"\n> Thank you {user.FirstName}");
             Printing.PrintBalanceAfterTransaction(myChecking);
-            AtmMenu(user, myChecking);
+            AtmMenu(user, myChecking, savings);
         }
 
         // ATM Withdraw //
-        public static void AtmUserWithdraw(User user, Account account)
+        public static void AtmUserWithdraw(User user, Account checking, Account savings)
         {
             Printing.Title();
             Printing.Loading();
@@ -237,13 +242,13 @@ namespace ATMConsoleApplication
             bool confirmed = false;
             while (!confirmed)
             {
-                WriteLine($"\n> Your Current Balance is {account.GetBalance():C2}");
+                WriteLine($"\n> Your Current Balance is {checking.GetBalance():C2}");
                 Write("\n> How much would you like to withdrawl: ");
                 bool parse = decimal.TryParse(ReadLine(), out decimal num);
                 if (!parse)
                 {
                     Printing.InvalidSelection();
-                    account.Withdrawl(user, account, num);
+                    checking.Withdrawl(user, checking, savings, num);
                 }
                 ConsoleColor previousColor = ForegroundColor;
                 ForegroundColor = ConsoleColor.Green;
@@ -264,40 +269,88 @@ namespace ATMConsoleApplication
                 {
                     Printing.Loading();
                     WriteLine("\n> Transaction Canceled. Returing to Main Menu. ");
-                    AtmMenu(user, account);
+                    AtmMenu(user, checking, savings);
                 }
                 else
                 {
                     Printing.Loading();
                     Printing.Title();
                     Printing.InvalidSelection();
-                    AtmUserWithdraw(user, account);
+                    AtmUserWithdraw(user, checking, savings);
                 }
             }
-            account.Withdrawl(user, account, withdrawl);
+            checking.Withdrawl(user, checking, savings, withdrawl);
             Printing.Title();
             WriteLine($"\n> Thank you {user.FirstName}");
-            Printing.PrintBalanceAfterTransaction(account);
-            ReadKey();
-            AtmMenu(user, account);
+            Printing.PrintBalanceAfterTransaction(checking);
+            AtmMenu(user, checking, savings);
         }
 
         // ATM Balance //
-        public static void AtmUserBalance(User user, Account account)
+        public static void AtmUserBalance(User user, Account checking, Account savings)
         {
             Printing.Title();
             Printing.Loading();
             Printing.Title();
             Printing.LoggedIn(user);
-            Printing.PrintCurrentBalance(account);
-            AtmMenu(user, account);
+            Printing.PrintCurrentBalance(checking);
+            AtmMenu(user, checking, savings);
         }
 
         // ATM Open Savings Account //
-        public static void AtmSavingsAccount(User user, Account account)
+        public static void AtmSavingsAccount(User user, Account checking, Account savings)
         {
-            WriteLine("IN DEVELOPMENT");
-            ReadKey();
+            Printing.Title();
+            Printing.Loading();
+            Printing.Title();
+            Printing.LoggedIn(user);
+            decimal withdrawl = 0;
+            bool confirmed = false;
+            while (!confirmed)
+            {
+                WriteLine($"\n> Your Current Checking Account Balance is {checking.GetBalance():C2}");
+                WriteLine($"\n> Your Current Savings Account Balance is {savings.GetBalance():C2}");
+                Write("\n> How much would you like to tranfer: ");
+                bool parse = decimal.TryParse(ReadLine(), out decimal num);
+                if (!parse)
+                {
+                    Printing.InvalidSelection();
+                    savings.Transfer(user, checking, savings, num);
+                }
+                ConsoleColor previousColor = ForegroundColor;
+                ForegroundColor = ConsoleColor.Green;
+                WriteLine($"\n> You entered * {num:C2} *");
+                ForegroundColor = previousColor;
+
+                Write("\n> Are you sure you want to procede? (Yes/No) ");
+                string userResponse = ReadLine().ToLower().Trim();
+                if (userResponse == "yes")
+                {
+                    Printing.Loading();
+                    WriteLine("\n> Please Wait While we Confirm the Transfer.");
+                    Write("\n> Press Enter to Continue: ");
+                    withdrawl = num;
+                    confirmed = true;
+                }
+                else if (userResponse == "no")
+                {
+                    Printing.Loading();
+                    WriteLine("\n> Transaction Canceled. Returing to Main Menu. ");
+                    AtmMenu(user, checking, savings);
+                }
+                else
+                {
+                    Printing.Loading();
+                    Printing.Title();
+                    Printing.InvalidSelection();
+                    AtmSavingsAccount(user, checking, savings);
+                }
+            }
+            savings.Transfer(user, checking, savings, withdrawl);
+            Printing.Title();
+            WriteLine($"\n> Thank you {user.FirstName}");
+            Printing.PrintBalanceAfterTransaction(savings);
+            AtmMenu(user, checking, savings);
         }
 
         public static void Exit()

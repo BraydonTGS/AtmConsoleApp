@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Security.Principal;
+
 namespace ATMConsoleApplication.Accounts
 {
     public abstract class Account
     {
         private decimal _balance { get; set; }
-
         protected int _pin { get; set; }
+
 
         public Account()
         {
@@ -17,6 +19,7 @@ namespace ATMConsoleApplication.Accounts
             _balance = balance;
             _pin = pin;
         }
+
 
         public decimal GetBalance() => _balance;
 
@@ -30,28 +33,43 @@ namespace ATMConsoleApplication.Accounts
             return _pin;
         }
 
-
-        // Deposit //
         public decimal Deposit(Account account, decimal amount)
         {
             var newAmount = account.GetBalance() + amount;
             return account.SetNewBalance(newAmount);
         }
 
-        // Withdrawl //
-        public decimal Withdrawl(User user, Account account, decimal amount)
+        public decimal Transfer(User user, Account checking, Account savings, decimal amount)
         {
-            if (account.GetBalance() < amount)
+            if (checking.GetBalance() < amount)
             {
                 Printing.Title();
                 Printing.InsufficientFunds();
-                // ATM.AtmUserWithdraw(user, account);
+                ATM.AtmUserWithdraw(user, checking, savings);
             }
 
             else
             {
-                var answer = account.GetBalance() - amount;
-                return account.SetNewBalance(answer);
+                var answer = checking.GetBalance() - amount;
+                checking.SetNewBalance(answer);
+                return savings.Deposit(savings, amount);
+            }
+            return 0;
+        }
+
+        public decimal Withdrawl(User user, Account checking, Account savings, decimal amount)
+        {
+            if (checking.GetBalance() < amount)
+            {
+                Printing.Title();
+                Printing.InsufficientFunds();
+                ATM.AtmUserWithdraw(user, checking, savings);
+            }
+
+            else
+            {
+                var answer = checking.GetBalance() - amount;
+                return checking.SetNewBalance(answer);
             }
             return 0;
         }

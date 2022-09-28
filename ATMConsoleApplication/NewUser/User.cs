@@ -8,8 +8,8 @@ namespace ATMConsoleApplication
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
         private List<Account> Accounts = new List<Account>();
+
 
         public User(string firstName, string lastName)
         {
@@ -26,20 +26,21 @@ namespace ATMConsoleApplication
                 {
                     return myChecking;
                 }
-                else
-                {
-                    WriteLine("> Account Not Found, Something Went Wrong. ");
-                    ReadKey();
-                    break;
-                }
             }
             return GetChecking(user);
 
         }
 
-        public void AddNewCheckingtToList(CheckingAccount account)
+        public SavingsAccount GetSavings(User user)
         {
-            Accounts.Add(account);
+            foreach (var accounts in user.Accounts)
+            {
+                if (accounts is SavingsAccount mySavings)
+                {
+                    return mySavings;
+                }
+            }
+            return GetSavings(user);
         }
 
         public void AddNewAccountToList(Account account)

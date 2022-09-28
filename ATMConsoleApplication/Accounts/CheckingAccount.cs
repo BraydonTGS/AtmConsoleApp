@@ -21,36 +21,6 @@ namespace ATMConsoleApplication.Accounts
             return _accountNumber;
         }
 
-        public int GetAccountPin()
-        {
-            return _pin;
-        }
-
-        // Deposit //
-        public decimal Deposit(CheckingAccount checking, decimal amount)
-        {
-            var newAmount = checking.GetBalance() + amount;
-            return checking.SetNewBalance(newAmount);
-        }
-
-        // Withdrawl //
-        public decimal Withdrawl(User user, CheckingAccount checking, decimal amount)
-        {
-            if (checking.GetBalance() < amount)
-            {
-                Printing.Title();
-                Printing.InsufficientFunds();
-                ATM.AtmUserWithdraw(user, checking);
-            }
-
-            else
-            {
-                var answer = checking.GetBalance() - amount;
-                return checking.SetNewBalance(answer);
-            }
-            return 0;
-        }
-
     }
 }
 

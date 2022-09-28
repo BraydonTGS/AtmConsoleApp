@@ -10,11 +10,13 @@ namespace ATMConsoleApplication.Accounts
 
         }
 
-        public SavingsAccount(decimal balance, int pin) : base(balance, pin)
+        public SavingsAccount(decimal startingBalance)
         {
             Random rnd = new Random();
             _accountNumber = rnd.Next(10000000, 1000000000);
+            SetNewBalance(startingBalance);
         }
+
 
         public int GetAccountNumber()
         {
