@@ -3,9 +3,6 @@ namespace ATMConsoleApplication.Accounts
 {
     public class CheckingAccount : Account
     {
-
-
-
         private int _accountNumber { get; set; }
 
         public CheckingAccount()

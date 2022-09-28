@@ -12,13 +12,11 @@
     <None Remove="Printing\" />
     <None Remove="World\" />
     <None Remove="NewUser\" />
-    <None Remove="Transactions\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Accounts\" />
     <Folder Include="Printing\" />
     <Folder Include="World\" />
     <Folder Include="NewUser\" />
-    <Folder Include="Transactions\" />
   </ItemGroup>
 </Project>

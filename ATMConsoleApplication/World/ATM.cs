@@ -14,7 +14,6 @@ namespace ATMConsoleApplication
             Printing.Title();
             Write("\n> Would You Like to Create a New Account? (Yes/No) ");
             string userResponse = Console.ReadLine().ToLower().Trim();
-
             switch (userResponse)
             {
                 case "yes":
