@@ -82,6 +82,7 @@ namespace ATMConsoleApplication
         {
             Printing.Title();
             BankAccounts bank = new BankAccounts();
+            // The inital checking //
             User newUser = new User(firstName, lastName, balance, pin);
             bank.AddNewUserToList(newUser);
             WriteLine("\n> We have automatically generated you an Account Number.");
