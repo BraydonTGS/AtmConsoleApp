@@ -14,6 +14,7 @@ namespace ATMConsoleApplication.Accounts
         {
             Random rnd = new Random();
             _accountNumber = rnd.Next(10000000, 1000000000);
+            Name = "Savings Account";
             SetNewBalance(startingBalance);
         }
 

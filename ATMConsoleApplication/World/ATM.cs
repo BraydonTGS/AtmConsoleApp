@@ -85,7 +85,7 @@ namespace ATMConsoleApplication
             BankAccounts bank = new BankAccounts();
             var newUser = new User(firstName, lastName);
             CheckingAccount checking = new CheckingAccount(balance, pin);
-            Account savings = new SavingsAccount();
+            SavingsAccount savings = new SavingsAccount(0.0m);
             bank.AddNewUserToList(newUser);
             newUser.AddNewAccountToList(checking);
             newUser.AddNewAccountToList(savings);

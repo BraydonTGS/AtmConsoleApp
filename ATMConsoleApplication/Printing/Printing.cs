@@ -149,6 +149,7 @@ namespace ATMConsoleApplication
         {
             ConsoleColor previousColor = ForegroundColor;
             ForegroundColor = ConsoleColor.Green;
+            WriteLine($"\n> {myAccount.Name}");
             WriteLine($"\n> Your new Balance is {myAccount.GetBalance():C2}");
             ForegroundColor = previousColor;
             Write("\n> Press Enter to Continue: ");

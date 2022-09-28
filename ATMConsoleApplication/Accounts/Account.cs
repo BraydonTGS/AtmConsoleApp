@@ -5,6 +5,7 @@ namespace ATMConsoleApplication.Accounts
 {
     public abstract class Account
     {
+        public string Name { get; set; }
         private decimal _balance { get; set; }
         protected int _pin { get; set; }
 
