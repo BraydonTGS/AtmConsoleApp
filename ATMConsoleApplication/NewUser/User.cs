@@ -10,18 +10,31 @@ namespace ATMConsoleApplication
         private int _pin;
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        private List<Account> Accounts { get; set; } = new List<Account>();
+        public List<Account> Accounts;
 
         public User(string firstName, string lastName, decimal amount, int pin)
         {
             Random rnd = new Random();
-
+            new List<Account>();
             _accountNumber = rnd.Next(10000000, 1000000000);
             _balance = amount;
             _pin = pin;
 
             FirstName = firstName;
             LastName = lastName;
+
+        }
+
+        public Account GetChecking(User user)
+        {
+            foreach (var accounts in user.Accounts)
+            {
+                if (accounts is CheckingAccount myChecking)
+                {
+                    return myChecking;
+                }
+            }
+            //  return GetChecking(user); 
 
         }
 
@@ -43,6 +56,11 @@ namespace ATMConsoleApplication
         public int GetUserPin()
         {
             return _pin;
+        }
+
+        public void AddNewAccouuntToList(Account account)
+        {
+            Accounts.Add(account);
         }
 
     }

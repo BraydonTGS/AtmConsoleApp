@@ -5,6 +5,11 @@ namespace ATMConsoleApplication.Accounts
     {
         public int _accountNumber { get; set; }
 
+        public SavingsAccount()
+        {
+
+        }
+
         public SavingsAccount(decimal balance, int pin) : base(balance, pin)
         {
             Random rnd = new Random();

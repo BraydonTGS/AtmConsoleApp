@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.NetworkInformation;
+using ATMConsoleApplication.Accounts;
 using static System.Console;
 namespace ATMConsoleApplication
 {
@@ -8,7 +9,6 @@ namespace ATMConsoleApplication
         // Start of the Program //
         public static void Run()
         {
-
             ForegroundColor = ConsoleColor.White;
             Printing.Title();
             Write("\n> Would You Like to Create a New Account? (Yes/No) ");
@@ -83,8 +83,10 @@ namespace ATMConsoleApplication
             Printing.Title();
             BankAccounts bank = new BankAccounts();
             // The inital checking //
-            User newUser = new User(firstName, lastName, balance, pin);
+            var newUser = new User(firstName, lastName, balance, pin);
+            var checking = new CheckingAccount(balance, pin);
             bank.AddNewUserToList(newUser);
+            newUser.AddNewAccouuntToList(checking);
             WriteLine("\n> We have automatically generated you an Account Number.");
             Thread.Sleep(1500);
             WriteLine("\n> Please Write this Number Down: ");

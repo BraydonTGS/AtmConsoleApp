@@ -6,6 +6,11 @@ namespace ATMConsoleApplication.Accounts
         public decimal _balance { get; private set; }
         public int _pin { get; set; }
 
+        public Account()
+        {
+
+        }
+
         public Account(decimal balance, int pin)
         {
             _balance = balance;
