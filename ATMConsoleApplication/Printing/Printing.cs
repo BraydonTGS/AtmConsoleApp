@@ -1,4 +1,5 @@
 ﻿using System;
+using ATMConsoleApplication.Accounts;
 using static System.Console;
 namespace ATMConsoleApplication
 {
@@ -32,12 +33,12 @@ namespace ATMConsoleApplication
         // Atm Selection //
         public static void AtmSelection()
         {
-            Console.WriteLine("\n> Please select one of the following options...");
-            Console.WriteLine("\t\n1. Deposit");
-            Console.WriteLine("\t\n2. Withdraw");
-            Console.WriteLine("\t\n3. Show Balance");
+            WriteLine("\n> Please select one of the following options...");
+            WriteLine("\t\n1. Deposit");
+            WriteLine("\t\n2. Withdraw");
+            WriteLine("\t\n3. Show Balance");
             WriteLine("\n4. Open Savings Account");
-            Console.WriteLine("\t\n5. Exit");
+            WriteLine("\t\n5. Exit");
         }
 
         // Atm Greeting //
@@ -132,11 +133,11 @@ namespace ATMConsoleApplication
         }
 
         // Print Current Balance //
-        public static void PrintCurrentBalance(User user)
+        public static void PrintCurrentBalance(CheckingAccount checking)
         {
             ConsoleColor previousColor = ForegroundColor;
             ForegroundColor = ConsoleColor.Green;
-            WriteLine($"\n> Your Current Balance is {user.GetUserBalance():C2}");
+            WriteLine($"\n> Your Current Balance is {checking.GetBalance():C2}");
             WriteLine($"\n> Press Enter to Continue ");
             ReadKey();
             ForegroundColor = previousColor;
@@ -144,11 +145,11 @@ namespace ATMConsoleApplication
         }
 
         // Balance After Transaction //
-        public static void PrintBalanceAfterTransaction(User user)
+        public static void PrintBalanceAfterTransaction(CheckingAccount checking)
         {
             ConsoleColor previousColor = ForegroundColor;
             ForegroundColor = ConsoleColor.Green;
-            WriteLine($"\n> Your new Balance is {user.GetUserBalance():C2}");
+            WriteLine($"\n> Your new Balance is {checking.GetBalance():C2}");
             ForegroundColor = previousColor;
             Write("\n> Press Enter to Continue: ");
             ReadKey();

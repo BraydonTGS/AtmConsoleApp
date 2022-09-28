@@ -3,8 +3,9 @@ namespace ATMConsoleApplication.Accounts
 {
     public abstract class Account
     {
-        public decimal _balance { get; private set; }
-        public int _pin { get; set; }
+        private decimal _balance { get; set; }
+
+        protected int _pin { get; set; }
 
         public Account()
         {
@@ -24,6 +25,36 @@ namespace ATMConsoleApplication.Accounts
             return _balance = value;
         }
 
+        public int GetAccountPin()
+        {
+            return _pin;
+        }
+
+
+        // Deposit //
+        public decimal Deposit(Account account, decimal amount)
+        {
+            var newAmount = account.GetBalance() + amount;
+            return account.SetNewBalance(newAmount);
+        }
+
+        // Withdrawl //
+        public decimal Withdrawl(User user, Account account, decimal amount)
+        {
+            if (account.GetBalance() < amount)
+            {
+                Printing.Title();
+                Printing.InsufficientFunds();
+                // ATM.AtmUserWithdraw(user, account);
+            }
+
+            else
+            {
+                var answer = account.GetBalance() - amount;
+                return account.SetNewBalance(answer);
+            }
+            return 0;
+        }
 
     }
 }

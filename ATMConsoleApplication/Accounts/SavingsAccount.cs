@@ -3,7 +3,7 @@ namespace ATMConsoleApplication.Accounts
 {
     public class SavingsAccount : Account
     {
-        public int _accountNumber { get; set; }
+        private int _accountNumber { get; set; }
 
         public SavingsAccount()
         {
@@ -14,6 +14,11 @@ namespace ATMConsoleApplication.Accounts
         {
             Random rnd = new Random();
             _accountNumber = rnd.Next(10000000, 1000000000);
+        }
+
+        public int GetAccountNumber()
+        {
+            return _accountNumber;
         }
     }
 }
