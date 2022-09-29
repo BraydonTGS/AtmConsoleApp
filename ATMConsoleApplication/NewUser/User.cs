@@ -18,7 +18,7 @@ namespace ATMConsoleApplication
 
         }
 
-        public CheckingAccount GetChecking(User user)
+        public CheckingAccount GetChecking(User user, CheckingAccount checking)
         {
             foreach (var accounts in user.Accounts)
             {
@@ -27,11 +27,11 @@ namespace ATMConsoleApplication
                     return myChecking;
                 }
             }
-            return GetChecking(user);
+            return checking;
 
         }
 
-        public SavingsAccount GetSavings(User user)
+        public SavingsAccount GetSavings(User user, SavingsAccount savings)
         {
             foreach (var accounts in user.Accounts)
             {
@@ -40,7 +40,7 @@ namespace ATMConsoleApplication
                     return mySavings;
                 }
             }
-            return GetSavings(user);
+            return savings;
         }
 
         public void AddNewAccountToList(Account account)
