@@ -37,7 +37,7 @@ namespace ATMConsoleApplication
             WriteLine("\t\n1. Deposit");
             WriteLine("\t\n2. Withdraw");
             WriteLine("\t\n3. Show Balance");
-            WriteLine("\n4. Deposit to Savings Account");
+            WriteLine("\n4. Transfer to Savings Account");
             WriteLine("\t\n5. Exit");
         }
 

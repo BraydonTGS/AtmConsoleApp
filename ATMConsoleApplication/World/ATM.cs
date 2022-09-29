@@ -34,9 +34,9 @@ namespace ATMConsoleApplication
             Printing.Title();
 
             Write("\n> Please Enter Your First Name: ");
-            string firstName = ReadLine().ToLower().Trim() ?? "Unknown";
+            string firstName = ReadLine().Trim() ?? "Unknown";
             Write("\n> Please Enter Your Last Name: ");
-            string lastName = ReadLine().ToLower().Trim() ?? "Unknown";
+            string lastName = ReadLine().Trim() ?? "Unknown";
             Write("\n> Please Enter Your Starting Balance: ");
             bool parse = decimal.TryParse(ReadLine(), out decimal balance);
             if (!parse)
@@ -309,7 +309,7 @@ namespace ATMConsoleApplication
             {
                 WriteLine($"\n> Your Current Checking Account Balance is {checking.GetBalance():C2}");
                 WriteLine($"\n> Your Current Savings Account Balance is {savings.GetBalance():C2}");
-                Write("\n> How much would you like to tranfer: ");
+                Write("\n> How much would you like to transfer: ");
                 bool parse = decimal.TryParse(ReadLine(), out decimal num);
                 if (!parse)
                 {
