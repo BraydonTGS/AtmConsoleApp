@@ -88,8 +88,8 @@ namespace ATMConsoleApplication
             bank.AddNewUserToList(newUser);
             newUser.AddNewAccountToList(checking);
             newUser.AddNewAccountToList(savings);
-            var userChecking = newUser.GetChecking(newUser);
-            var userSavings = newUser.GetSavings(newUser);
+            var userChecking = newUser.GetChecking(newUser, checking);
+            var userSavings = newUser.GetSavings(newUser, savings);
             WriteLine("\n> We have automatically generated you a Checking & Savings Account.");
             Thread.Sleep(1500);
             WriteLine("\n> Please Write this Number Down: ");
